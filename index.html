@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onam - Kerala's biggest festival</title>
+    
+    <style>
+        body { 
+            font-family: Arial, sans-serif;  
+            background-color: #fff3e6; 
+            background-attachment: fixed;
+            text-align: center;
+            position: relative;
+        }
+
+        #mainContent {
+            margin: 20px;
+        }
+
+        #musicControl {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 100;
+            color: rgb(226, 192, 21);
+        }
+
+        #chatContainer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            display: block;
+        }
+
+        #chatbox {
+            display: none; 
+            flex-direction: column;
+            margin-top: 10px;
+            text-align: left;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            width: 300px;
+            max-height: 300px; 
+            overflow: hidden; /* Adjusted to hidden */
+        }
+
+        #chatLog {
+            overflow-y: auto; /* Enable vertical scrolling */
+            flex-grow: 1; 
+            max-height: 220px; /* Adjust max height for chat log */
+            margin-bottom: 10px; 
+            padding-bottom: 10px; 
+        }
+
+        #chatMessage {
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            display: inline-block;
+        }
+
+        #maveliImage {
+            cursor: pointer;
+            width: 100px;
+            position: relative; 
+            transition: transform 0.3s, border 0.3s;
+        }
+
+        #maveliImage:hover {
+            border: 5px solid orange;
+            transform: scale(1.1);
+        }
+
+        .user-message {
+            color: blue;
+        }
+
+        .maveli-message {
+            color: green;
+        }
+
+        #inputContainer {
+            display: none; 
+            margin-top: 10px;
+            align-items: center;
+        }
+
+        #userInput {
+            width: 70%;
+            margin-right: 5px; 
+        }
+
+    </style>
+</head>
+<body>
+    <button id="musicControl" onclick="toggleMusic()" style="display: none;">Pause Music</button>
+    
+    <div id="mainContent">
+        <h1>Onam Celebration</h1>
+        <p>Onam commemorates the return of the generous daitya king Mahabali after he was banished to the netherworld by Vamana.</p>
+        <img src="mahabali_image.jpg" alt="King Mahabali" style="width:100%; max-width:600px;">
+        <p>It is an annual harvest and Hindu cultural festival celebrated mostly by the people of Kerala.</p>
+        <img src="onam_festival.jpg" alt="Onam Festival" style="width:100%; max-width:600px;">
+        <p>Onam falls in the month of Chingam, which is the first month according to the Malayalam Calendar.</p>
+        <img src="malayalam_calendar.jpg" alt="Malayalam Calendar" style="width:100%; max-width:600px;">
+        <p>The Onapookkalam is made out of gathered blossoms to decorate patterns on the floor.</p>
+        <img src="onapookkalam.jpg" alt="Onapookkalam" style="width:100%; max-width:600px;">
+        <p>The Onam sadya is a feast served on plantain leaves, consisting of many dishes.</p>
+        <img src="onam_sadya.jpg" alt="Onam Sadya" style="width:100%; max-width:600px;">
+        <p>For more reference on Onam, visit <a href="https://en.wikipedia.org/wiki/Onam" target="_blank">this link</a>.</p>
+    </div>
+
+    <div id="chatContainer">
+        <div id="chatMessage">
+            <strong>Click on Maveli to start chatting!</strong>
+        </div>
+        <img id="maveliImage" src="maveli_image.jpg" alt="Maveli" onclick="startChat()">
+        
+        <div id="chatbox">
+            <div id="chatLog"></div>
+            <div id="inputContainer">
+                <input type="text" id="userInput" placeholder="Type your message..." />
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+    
+    <audio id="backgroundMusic" src="maveli_song.weba" type="audio/webm" loop></audio>
+   
+    <script>
+        function startChat() {
+            document.getElementById('chatContainer').style.display = 'block'; // Show chat container
+            document.getElementById('chatbox').style.display = 'block'; // Show chatbox
+            document.getElementById('chatMessage').style.display = 'none'; // Hide the initial message
+            document.getElementById('inputContainer').style.display = 'flex'; // Show input container
+            playMusic();
+            document.getElementById('chatLog').innerHTML += "<p class='maveli-message'>നമസ്കാരം! എല്ലാർക്കും ഹൃദയം നിറഞ്ഞ ഓണാശംസകൾ!</p><p class='maveli-message'>Happy Onam! എന്താണ് നിങ്ങളുടെ ചോദ്യം?</p>"; // Initial bot message
+            document.getElementById('chatLog').scrollTop = document.getElementById('chatLog').scrollHeight; 
+            document.getElementById('userInput').focus(); // Focus on the input field
+        }
+
+        function playMusic() {
+            const audio = document.getElementById('backgroundMusic');
+            audio.play(); // Play music
+            document.getElementById('musicControl').style.display = 'block'; 
+            document.getElementById('musicControl').innerText = "Pause Music"; 
+        }
+
+        function toggleMusic() {
+            const audio = document.getElementById('backgroundMusic');
+            if (audio.paused) {
+                audio.play(); // Play music
+                document.getElementById('musicControl').innerText = "Pause Music"; 
+            } else {
+                audio.pause(); // Pause music
+                document.getElementById('musicControl').innerText = "Play Music";
+            }
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('userInput').value;
+            if (userInput) {
+                document.getElementById('chatLog').innerHTML += "<p class='user-message'>You: " + userInput + "</p>"; // Display user input
+                document.getElementById('userInput').value = ''; 
+                const botResponse = chatbotResponse(userInput); 
+                document.getElementById('chatLog').innerHTML += "<p class='maveli-message'>Maveli: " + botResponse + "</p>"; // Display Maveli's response
+                document.getElementById('chatLog').scrollTop = document.getElementById('chatLog').scrollHeight; 
+            }
+        }
+
+        function chatbotResponse(userInput) {
+            userInput = userInput.toLowerCase();
+            if (userInput === "happy onam") {
+                return "ഹൃദയം നിറഞ്ഞ ഓണാശംസകൾ!"; 
+            } else if (userInput.includes("onam")) {
+                return "ഓണം കേരളത്തിലെ ഏറ്റവും വലിയ ഉത്സവമാണ്! കള്ളവും ചതിയും ഇല്ലാതെ സന്തോഷം ആയി ആകോശിക്കണ്ട നാളുകൾ ആഹ്ന് ഇത്"; 
+            } else if (userInput.includes("sadya") || userInput.includes("sadhya"))  {
+                return "ഓണസദ്യ എല്ലാ വിഭവങ്ങളോടും കൂടിയ ഒരു മഹാനുഭവമാണ്. ഞാൻ നന്നായി കഴിച്ചു! നിങ്ങൾക് ഓണസദ്യ ഇഷ്ടം അല്ലെ?"; 
+            } else if (userInput.includes("yes") || userInput.includes("athey") || userInput.includes("athe") || userInput.includes("yeah")){
+                return "ഗംഭീരം!";
+            } else if (userInput.includes("pookalam")) {
+                return "പൂക്കളം എല്ലാരും ചേർന്ന് പുഷ്പങ്ങളാൽ ആസൂത്രണം ചെയ്യുന്ന ഒരു കലാരൂപമാണ്."; 
+            } else if (userInput.includes("bye") || userInput.includes("illa") || userInput.includes("no"))  {
+                return "അടുത്ത ഓണത്തിന് കാണാ... ഓണാശംസകൾ വീണ്ടും!!";
+            } else if (userInput.includes("hi") || userInput.includes("hello") || userInput.includes("hey") || userInput.includes("ohho")){
+                return "ഹായ്! സുഗം തന്നെ അല്ലെ"; 
+            } else if (userInput.includes("vamanan") || userInput.includes("pinne")) {
+                return "വാമനൻ സുഗം തന്നെ അല്ലെ"; 
+            }  else if (userInput.includes("festival") || userInput.includes("utsavam")) {
+                    return "ഓണം കേരളത്തിലെ ഏറ്റവും പ്രധാനപ്പെട്ട ഉത്സവങ്ങളിലൊന്നാണ്. ഈ ദിനം എല്ലാവർക്കും സന്തോഷം നൽകുന്നു.";
+            } else if (userInput.includes("family") || userInput.includes("kutumbam")) {
+                    return "ഓണം കുടുംബശ്രീയുടെ സന്തോഷവാർത്ത കൊണ്ടുവരുന്നു. ഈ ദിവസം എല്ലാവരും ഒന്നിച്ചു മേളക്കാർക്കും സന്തോഷത്തിലേക്ക്.";
+            } else if (userInput.includes("celebrate") || userInput.includes("utsavikkan")) {
+                    return "ഓണം ആഘോഷിക്കുമ്പോൾ, സന്തോഷം പങ്കുവയ്ക്കുകയും ആഘോഷങ്ങൾ നടത്തുകയും ചെയ്യുക.";
+            } else if (userInput.includes("tradition") || userInput.includes("parampara")) {
+                    return "ഓണത്തിന് പാടുവാൻ നമുക്ക് അനുഭവങ്ങൾ ഉറപ്പായും സ്നേഹവും പരമ്പരാഗതങ്ങളും നമ്മെ ബന്ധിപ്പിക്കുന്നു.";
+            } else if (userInput.includes("dance") || userInput.includes("nrittam")) {
+                    return "ഓണത്തിന് നടക്കുന്ന നൃത്തങ്ങൾ വളരെ ആകർഷകമാണ്. നൃത്തം ആസ്വദിക്കാൻ മോദം തരുന്നു!";
+            } else if (userInput.includes("stories") || userInput.includes("kathakal")) {
+                    return "ഓണത്തെ സംബന്ധിച്ച കഥകൾ മനോഹരമായവയാണ്. നാം എല്ലാം അതിൽ നിന്നും പഠിക്കാം!";
+            } else if (userInput.includes("king") || userInput.includes("mahabali")) {
+                    return "മഹാബലി രാജാവ് നമുക്ക് സന്തോഷം കൈമാറാൻ ഓണത്തിൽ തിരിച്ചുവന്നതാണ്. നമുക്ക് അദ്ദേഹത്തെ ഏറ്റുപറ്റി!";
+            } else if (userInput.includes("harvest") || userInput.includes("koyth")) {
+                    return "ഓണം harvest festival ആണ്, ആനന്ദത്തോടും ആഹാരത്തോടും കൂടി കൃഷി വിളവെടുക്കുന്ന സമയം.";
+            } else if (userInput.includes("gift") || userInput.includes("upaharam")) {
+                    return "ഓണത്തിൽ എല്ലാവർക്കും സമ്മാനങ്ങൾ നൽകുന്ന ആചാരമുണ്ട്, ഇതുവഴി നമ്മൾ നമ്മുടെ പ്രിയപ്പെട്ടവരെ സന്തോഷിപ്പിക്കാം.";
+            } else if (userInput.includes("greetings") || userInput.includes("namaskaram")) {
+                    return "നമസ്കാരം! ഓണാശംസകൾ! നിങ്ങൾക്ക് എങ്ങനെ പോകുന്നു?";
+            } else if (userInput.includes("culture") || userInput.includes("samskriti")) {
+                    return "ഓണം നമ്മുടെ സംസ്കാരത്തിന്റെ അടയാളമാണ്, അത് പ്രാചീനമായ സാംസ്കാരിക മൂല്യങ്ങൾ സംരക്ഷിക്കുന്നതിനായി.";
+            } else if (userInput.includes("games") || userInput.includes("kalikal")) {
+                    return "ഓണത്തെത്തുടർന്ന് കായിക മത്സരങ്ങൾ വളരെ പ്രസിദ്ധമാണ്. അത് ചിരിയും സന്തോഷവും നൽകുന്നു.";
+            } else if (userInput.includes("sweets") || userInput.includes("mittayi")) {
+                    return "ഓണത്തിൽ ഉണ്ടാകുന്ന മിത്തായികൾ രുചിയിൽ സമൃദ്ധമാണ്. അവ എങ്ങനെയാണ്?";
+            } else {
+                  return "അതെനിക്ക് പിടികിട്ടിയില്ല. മറ്റേതെങ്കിലും ചോദ്യം ഉണ്ടോ?"; 
+            }
+        }
+
+        document.getElementById('maveliImage').onmouseover = function() {
+            document.getElementById('speechBubble').style.display = 'block'; 
+        };
+
+        document.getElementById('maveliImage').onmouseout = function() {
+            document.getElementById('speechBubble').style.display = 'none'; 
+        };
+    </script>
+</body>
+</html>

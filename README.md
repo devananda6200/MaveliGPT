@@ -18,7 +18,9 @@ For live demo [MaveliGPT Demo]( https://devananda6200.github.io/MaveliGPT/)
 
 ## Technologies used
 -HTML
+
 -CSS
+
 -JavaScript
 
 ## Chatbot keywords for better responses

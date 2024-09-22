@@ -27,6 +27,8 @@ For live demo [MaveliGPT Demo]( https://devananda6200.github.io/MaveliGPT/)
 Hi,Happy onam,sadhya,onam,pookalam,tradition,family,vamanan,utsavam,dance,nrittam,mahabali,kathakal,samskriti,kalikal...
 
 
+
+
 Feel free to submit issues or pull requests. Contributions are welcome!
 
 This project is licensed under the MIT License.

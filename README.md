@@ -2,7 +2,7 @@
 
 Welcome to *MaveliGPT*, a chatbot designed to celebrate the Onam festival by providing information and answering questions as king Mahabali in Malayalam.
 
-For live demo [MaveliGPT Demo]()
+For live demo [MaveliGPT Demo]( https://devananda6200.github.io/MaveliGPT/)
 ## Features
 
 - Interactive chatbot responding in *Malayalam* to inputs in English

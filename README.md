@@ -23,6 +23,21 @@ For live demo [MaveliGPT Demo]( https://devananda6200.github.io/MaveliGPT/)
 
 -JavaScript
 
+## Platform
+
+Can be run in any code editor preferably Visual Studio Code
+
+-download the files
+
+-copy into a folder
+
+-select the folder path and replace it with "cmd" to open the Command prompt
+
+-Type "code ." in cmd to open the folder in VS Code
+
+-Download the "Go live" extension to host the webpage and chat with Maveli!
+
+
 ## Chatbot keywords for better responses
 Hi,Happy onam,sadhya,onam,pookalam,tradition,family,vamanan,utsavam,dance,nrittam,mahabali,kathakal,samskriti,kalikal...
 
